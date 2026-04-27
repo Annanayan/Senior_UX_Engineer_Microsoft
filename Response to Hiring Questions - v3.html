@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yan Wang — Microsoft UX Engineer Response</title>
+
+<!-- YW Favicon: SVG inline as data URI -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23fafaf8'/%3E%3Crect x='1.5' y='1.5' width='61' height='61' rx='9' fill='none' stroke='%23b8945f' stroke-width='1.5'/%3E%3Ctext x='32' y='44' font-family='Georgia%2C serif' font-size='26' font-weight='600' fill='%23000000' text-anchor='middle' letter-spacing='1'%3EYW%3C/text%3E%3C/svg%3E">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg:           #fafaf8;
+    --white:        #ffffff;
+    --black:        #000000;
+    --text:         #2a2a2a;
+    --text-muted:   #6b6b6b;
+    --text-faint:   #9a9a9a;
+    --accent:       #b8945f;
+    --accent-light: rgba(184, 148, 95, 0.10);
+    --accent-mid:   rgba(184, 148, 95, 0.22);
+    --border:       #e8e4de;
+    --border-dark:  #d0cbc2;
+    --card-shadow:  0 1px 4px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── PAGE ── */
+  .page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 72px 40px 120px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    margin-bottom: 64px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border-dark);
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+  }
+
+  .role-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    border: 1px solid var(--accent-mid);
+    padding: 5px 12px;
+    border-radius: 2px;
+  }
+
+  .date-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    color: var(--text-faint);
+    letter-spacing: 0.06em;
+    padding-top: 6px;
+  }
+
+  .header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 6vw, 58px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--black);
+    margin-bottom: 8px;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .header-sub {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .header-sub .sep {
+    color: var(--border-dark);
+    font-weight: 400;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── QUESTION BLOCKS ── */
+  .q-block {
+    margin-bottom: 64px;
+  }
+
+  .q-header {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 0 18px;
+    align-items: baseline;
+    margin-bottom: 20px;
+  }
+
+  .q-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--accent);
+    text-align: right;
+    padding-top: 2px;
+  }
+
+  .q-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--black);
+    line-height: 1.25;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .q-body {
+    padding-left: 62px;
+  }
+
+  .q-body p {
+    color: var(--text);
+    font-size: 14.5px;
+    margin-bottom: 14px;
+    line-height: 1.8;
+  }
+
+  .q-body p:last-of-type { margin-bottom: 0; }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 16px 20px;
+    margin: 18px 0;
+    border-radius: 0 4px 4px 0;
+    box-shadow: var(--card-shadow);
+  }
+
+  .callout p {
+    color: var(--black) !important;
+    font-size: 13.5px !important;
+    margin: 0 !important;
+    line-height: 1.75 !important;
+  }
+
+  /* ── METRIC PILLS ── */
+  .metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 18px 0;
+  }
+
+  .metric {
+    background: var(--white);
+    border: 1px solid var(--border-dark);
+    border-radius: 3px;
+    padding: 5px 13px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11.5px;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+
+  /* ── LINKS SECTION ── */
+  .links-section {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .links-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .live-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    animation: livepulse 2.4s ease infinite;
+  }
+
+  @keyframes livepulse {
+    0%, 100% { opacity: 0.4; box-shadow: 0 0 0 0 rgba(184,148,95,0); }
+    50%       { opacity: 1;   box-shadow: 0 0 0 4px rgba(184,148,95,0.18); }
+  }
+
+  .links-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .links-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  /* ── LINK CARD ── */
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 16px;
+    text-decoration: none;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.18s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .link-card:hover {
+    border-color: var(--accent-mid);
+    box-shadow: 0 2px 12px rgba(184,148,95,0.12);
+    transform: translateX(3px);
+  }
+
+  .link-card:hover .link-arrow { transform: translate(3px, -3px); color: var(--accent); }
+  .link-card:hover .link-url   { color: var(--accent); }
+
+  .link-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 5px;
+    background: var(--accent-light);
+    border: 1px solid var(--accent-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 13px;
+    color: var(--accent);
+  }
+
+  .link-text { flex: 1; min-width: 0; }
+
+  .link-purpose {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.35;
+    margin-bottom: 3px;
+  }
+
+  .link-url {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.2s;
+  }
+
+  .link-arrow {
+    font-size: 16px;
+    color: var(--border-dark);
+    flex-shrink: 0;
+    transition: transform 0.2s, color 0.2s;
+  }
+
+  /* ── HIGHLIGHT LABEL (Q4) ── */
+  .highlight-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent-light);
+    border: 1px solid var(--accent-mid);
+    border-radius: 3px;
+    padding: 4px 11px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 64px 0;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--black);
+    letter-spacing: 0.02em;
+  }
+
+  .footer-contact {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    text-align: right;
+    line-height: 1.9;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .page { padding: 48px 22px 80px; }
+    .q-body { padding-left: 0; }
+    .header-top { flex-direction: column; gap: 12px; }
+    .q-header { grid-template-columns: 30px 1fr; gap: 0 12px; }
+  }
+
+  @media print {
+    .reveal { opacity: 1; transform: none; }
+    .link-card { border-color: #ccc; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <span class="role-tag">Senior UX Engineer · Req #200034162</span>
+      <span class="date-tag">April 2026</span>
+    </div>
+    <h1>Yan Wang<br><em>Response to Hiring Questions</em></h1>
+    <div class="header-sub">
+      <span>Submitted to Elie Maman</span>
+      <span class="sep">/</span>
+      <span>Microsoft Global Talent Acquisition</span>
+      <span class="sep">/</span>
+      <span>412.291.0504</span>
+    </div>
+  </header>
+
+  <!-- Q1 -->
+  <div class="q-block reveal">
+    <div class="q-header">
+      <div class="q-number">01</div>
+      <div class="q-title">Programming Languages</div>
+    </div>
+    <div class="q-body">
+      <p>Python is what I'm most comfortable with. I use it for ML pipelines, agent development, data processing, and API integration with no ramp-up time. I also work in TypeScript, React, and Node.js, which I used to ship Math Village, a full-stack AI tutoring platform. On the infrastructure side I'm comfortable with FastAPI, WebSocket, and REST APIs, which I used in RunNCap for the real-time agent streaming layer.</p>
+      <div class="links-section">
+        <div class="links-header">
+          <span class="live-dot"></span>
+          <span class="links-label">Click to open · References</span>
+        </div>
+        <div class="links-grid">
+          <a class="link-card" href="https://github.com/Annanayan" target="_blank">
+            <div class="link-icon">⌥</div>
+            <div class="link-text">
+              <div class="link-purpose">Source code across Python, TypeScript, React and Node.js projects</div>
+              <div class="link-url">github.com/Annanayan</div>
+            </div>
+            <div class="link-arrow">↗</div>
+          </a>
+          <a class="link-card" href="https://yanwangweb.com" target="_blank">
+            <div class="link-icon">◈</div>
+            <div class="link-text">
+              <div class="link-purpose">Portfolio overview — all shipped projects with tech stack details</div>
+              <div class="link-url">yanwangweb.com</div>
+            </div>
+            <div class="link-arrow">↗</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-block reveal">
+    <div class="q-header">
+      <div class="q-number">02</div>
+      <div class="q-title">How AI and Agents Changed the Way I Work</div>
+    </div>
+    <div class="q-body">
+      <p>Before AI, a lot of work required a team. Research, documentation, design, and development: you couldn't realistically own all of that alone. After AI, I shifted my role into more of a direction controller and quality controller. I bring the question, guide the process, and give feedback at each step. That's changed how much I can actually ship.</p>
+      <p>The most concrete example is RunNCap, a web automation agent I built independently in about one week in late 2025. It takes a natural language prompt and executes real browser tasks autonomously — creating a GitHub repository, filling in the name and description, completing the workflow in about 90 seconds. Under the hood it uses GPT-4 Vision with Set-of-Mark visual grounding to identify page elements, a multi-tier fallback strategy that handles 95%+ of localization edge cases, and a FastAPI and WebSocket layer so users can watch the agent's actions live in real time.</p>
+      <p>The hardest problems weren't in the concept — the reasoning chain and the live stream both broke in ways I hadn't anticipated. Since I had no prior agent development experience, I used research to find targeted solutions for those specific failure modes, synthesized what was relevant, and redirected the implementation from there. Identifying the failure, finding targeted solutions, and redirecting became how I solved most of the hard problems in that build.</p>
+      <p>I apply the same pattern in research contexts. For the CMU × Roblox project, I used AI to accelerate literature synthesis across HCI, gaming, and behavioral science, then structured the findings into a research framework the team could act on directly.</p>
+      <div class="metrics">
+        <span class="metric">~1 week build time</span>
+        <span class="metric">95%+ edge case coverage</span>
+        <span class="metric">Live agent streaming</span>
+      </div>
+      <div class="links-section">
+        <div class="links-header">
+          <span class="live-dot"></span>
+          <span class="links-label">Click to open · References</span>
+        </div>
+        <div class="links-grid">
+          <a class="link-card" href="https://yanwangweb.com/projects/runncap" target="_blank">
+            <div class="link-icon">⟳</div>
+            <div class="link-text">
+              <div class="link-purpose">RunNCap demo — autonomous GitHub task completed in 90s with live browser streaming</div>
+              <div class="link-url">yanwangweb.com/projects/runncap</div>
+            </div>
+            <div class="link-arrow">↗</div>
+          </a>
+          <a class="link-card" href="https://docs.google.com/document/d/1NpftokGC_oen9mspINmRSg2L4TPLsuFS/edit?usp=sharing&ouid=111766080063910433361&rtpof=true&sd=true" target="_blank">
+            <div class="link-icon">⊡</div>
+            <div class="link-text">
+              <div class="link-purpose">AI-assisted research workflow — literature synthesis and structured documentation, CMU × Roblox</div>
+              <div class="link-url">docs.google.com · CMU × Roblox Literature Review</div>
+            </div>
+            <div class="link-arrow">↗</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-block reveal">
+    <div class="q-header">
+      <div class="q-number">03</div>
+      <div class="q-title">ML Domains, Shipped Work, and Gaps</div>
+    </div>
+    <div class="q-body">
+      <p>My strongest area is multimodal machine learning, specifically pipelines where perception and reasoning are handled as separate, debuggable stages rather than end-to-end black boxes.</p>
+      <p>The project I'd point to is a multimodal geometry reasoning pipeline I co-developed in 2025 as an ML researcher. The core problem was that vision-language models fail at geometric reasoning not because they can't reason, but because they misread diagrams. We built an iterative three-stage pipeline: a Planner that generates targeted follow-up questions about the diagram, a VQA module that reads the image and answers them, and a Belief-state Reasoner that accumulates those Q&A pairs before producing a final answer.</p>
+      <div class="callout">
+        <p>Without any additional training, the GPT-4o pipeline doubled baseline description quality and reached 40% accuracy with a 4.00 CoT reasoning score. The open-weights Qwen variant reached 34%, confirming the architecture generalizes beyond proprietary models.</p>
+      </div>
+      <p>The second area is agentic system design, covered by RunNCap: visual grounding, tool use pipelines, multi-step task planning, and real-time observability.</p>
+      <p>On gaps: my ML experience has been in the research and prototyping stage. I haven't owned a model through full production deployment — monitoring, retraining pipelines, serving at scale. I've worked around that by focusing on the evaluation layer: benchmark design, rubric-based assessment, and experiment tracking, which is where a lot of the real signal about model behavior lives anyway.</p>
+      <div class="metrics">
+        <span class="metric">40% accuracy · GPT-4o pipeline</span>
+        <span class="metric">+54% reasoning coherence</span>
+        <span class="metric">+16% description faithfulness</span>
+        <span class="metric">8 baseline comparisons</span>
+      </div>
+      <div class="links-section">
+        <div class="links-header">
+          <span class="live-dot"></span>
+          <span class="links-label">Click to open · References</span>
+        </div>
+        <div class="links-grid">
+          <a class="link-card" href="https://yanwangweb.com/projects/multimodal-geometry" target="_blank">
+            <div class="link-icon">△</div>
+            <div class="link-text">
+              <div class="link-purpose">Multimodal Geometry Reasoning — full pipeline design, 8 baselines, and experiment results</div>
+              <div class="link-url">yanwangweb.com/projects/multimodal-geometry</div>
+            </div>
+            <div class="link-arrow">↗</div>
+          </a>
+          <a class="link-card" href="https://yanwangweb.com/projects/runncap" target="_blank">
+            <div class="link-icon">⟳</div>
+            <div class="link-text">
+              <div class="link-purpose">RunNCap — agentic system with visual grounding, tool use pipelines, and real-time observability</div>
+              <div class="link-url">yanwangweb.com/projects/runncap</div>
+            </div>
+            <div class="link-arrow">↗</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-block reveal">
+    <div class="q-header">
+      <div class="q-number">04</div>
+      <div class="q-title">Cross-Discipline Complexity and Alignment</div>
+    </div>
+    <div class="q-body">
+      <div class="highlight-label">Context: Aishang AI · K-12 AI Platform · Product and Research Lead</div>
+      <p>At Aishang AI I was leading UX research on a K-12 AI platform. Through user interviews I identified a feature I believed had significant retention and acquisition value for our B2B clients. When I brought it to the product manager and the engineering lead, both pushed back. The PM said it wasn't prioritized, and engineering said they already had too much on the roadmap.</p>
+      <p>My first attempt failed because I framed it as a user experience priority. That wasn't the language either stakeholder cared about at that moment.</p>
+      <p>I rebuilt the case. I put together a structured document and a short deck that reframed the feature in terms of client retention risk, competitive differentiation, and new partner acquisition potential. That framing worked and the feature got prioritized.</p>
+      <div class="callout">
+        <p>What I'd do differently: I should have led with the business case from the start. I also wish I had gone in with more aggregate data: not just individual interview quotes, but a clearer picture of how many clients were affected across accounts. That would have made the urgency harder to dismiss.</p>
+      </div>
+      <div class="links-section">
+        <div class="links-header">
+          <span class="live-dot"></span>
+          <span class="links-label">Click to open · Reference</span>
+        </div>
+        <div class="links-grid">
+          <a class="link-card" href="https://yanwangweb.com/projects/aishang-ai-platform" target="_blank">
+            <div class="link-icon">◎</div>
+            <div class="link-text">
+              <div class="link-purpose">Aishang AI Platform — product and research work, stakeholder collaboration context</div>
+              <div class="link-url">yanwangweb.com/projects/aishang-ai-platform</div>
+            </div>
+            <div class="link-arrow">↗</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-block reveal">
+    <div class="q-header">
+      <div class="q-number">05</div>
+      <div class="q-title">A Project I Came Up With and Was Excited About</div>
+    </div>
+    <div class="q-body">
+      <p>At Mrs. Wordsmith I led the research for a diagnostic vocabulary game our team developed from scratch. The product had a specific constraint: it had to feel like a game, not a test, while still producing valid assessment data within a two-minute window. Because the assessment was adaptive, the metric we cared about wasn't accuracy. It was how many questions a child completed and how consistently they paced through them.</p>
+      <p>What I came up with was a multi-layer instrumentation framework for the usability testing cycles. I combined three data sources simultaneously: observation metric sheets capturing behavioral signals during sessions, backend dashboard analytics tracking time per question and items completed, and structured post-session interviews. Running all three in parallel was the key decision — each layer surfaced things the others couldn't.</p>
+      <p>In round one, completion was around 56% of available items. When I cross-referenced the data sources, two patterns came out clearly. First, some distractors were too semantically similar — kids hesitated because multiple answers felt plausibly correct, and the interview data confirmed it directly. Second, the two-minute total timer was being used inefficiently — some kids spent too long on early questions and ran out of time before reaching the later ones.</p>
+      <p>Based on that, I led two specific changes. We redesigned the distractor framework using clearer semantic relationships: synonym, antonym, and near-miss vocabulary, so kids could focus on meaning rather than ambiguity. And we implemented a five-second soft pacing mechanism per question with no visible countdown, so time pressure didn't add anxiety but pacing stayed consistent.</p>
+      <div class="callout">
+        <p>After those changes, completion rate improved from 56% to around 75%, and response times tightened noticeably across the group.</p>
+      </div>
+      <p>What I was most excited about: the framework itself. Each round removed the dominant friction and exposed the next layer of problems. That only works if you instrument carefully before round one, not after you see the numbers and wonder what happened.</p>
+      <div class="metrics">
+        <span class="metric">56% to 75% completion</span>
+        <span class="metric">3 rounds usability testing</span>
+        <span class="metric">Age 7 to 13 participants</span>
+        <span class="metric">3-layer instrumentation</span>
+      </div>
+      <div class="links-section">
+        <div class="links-header">
+          <span class="live-dot"></span>
+          <span class="links-label">Click to open · References</span>
+        </div>
+        <div class="links-grid">
+          <a class="link-card" href="https://yanwangweb.com/projects/diagnostic-game-design" target="_blank">
+            <div class="link-icon">◈</div>
+            <div class="link-text">
+              <div class="link-purpose">Diagnostic Game Design — project overview, research methodology, and design outcomes</div>
+              <div class="link-url">yanwangweb.com/projects/diagnostic-game-design</div>
+            </div>
+            <div class="link-arrow">↗</div>
+          </a>
+          <a class="link-card" href="https://docs.google.com/document/d/1eBc5ZZlFH0bx32rMvG5x5RqF93yC5ZL2/edit?usp=sharing&ouid=111766080063910433361&rtpof=true&sd=true" target="_blank">
+            <div class="link-icon">≡</div>
+            <div class="link-text">
+              <div class="link-purpose">Usability testing plan — rationale, goals, participant criteria, method, and procedure</div>
+              <div class="link-url">docs.google.com · Diagnostic User Testing Plan</div>
+            </div>
+            <div class="link-arrow">↗</div>
+          </a>
+          <a class="link-card" href="https://docs.google.com/document/d/1Io9XqRqx1gH7xAiwHxnAX7cXuPzDHl-5/edit?usp=sharing&ouid=111766080063910433361&rtpof=true&sd=true" target="_blank">
+            <div class="link-icon">↑</div>
+            <div class="link-text">
+              <div class="link-purpose">Two-round comparison report — completion rate lift from 56% to 75%, round-by-round analysis</div>
+              <div class="link-url">docs.google.com · Diagnostic User Testing Report</div>
+            </div>
+            <div class="link-arrow">↗</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider reveal"></div>
+
+  <footer class="footer reveal">
+    <div class="footer-name">Yan Wang</div>
+    <div class="footer-contact">
+      nmgwhmly@gmail.com<br>
+      412.291.0504<br>
+      yanwangweb.com
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // IntersectionObserver scroll reveal with staggered delay
+  const revealEls = document.querySelectorAll('.reveal');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const delay = parseInt(entry.target.dataset.delay || 0);
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.10, rootMargin: '0px 0px -28px 0px' });
+
+  revealEls.forEach((el, i) => {
+    el.dataset.delay = i * 55;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
